@@ -1,49 +1,54 @@
-#define trigPin 9           // Trig Pin Of HC-SR04
-#define echoPin 10      // Echo Pin Of HC-SR04
-#define MLa 5                   //left motor 1st pin
-#define MLb 7                  //left motor 2nd pin
-#define MRa 8               //right motor 1st pin
-#define MRb 6               //right motor 2nd pin
-#define touchpin 3
-long TravelTime, distance;
-
-void setup() {
-  Serial.begin(9600);
-  pinMode(MLa, OUTPUT);     // Set Motor Pins As O/P
-  pinMode(MLb, OUTPUT);
-  pinMode(MRa, OUTPUT);
-  pinMode(MRb, OUTPUT);
-  pinMode(trigPin, OUTPUT);       // Set Trig Pin As O/P To Transmit Waves
-  pinMode(echoPin, INPUT);        //Set Echo Pin As I/P To Receive Reflected Waves
-  pinMode(touchpin, INPUT);
+.card {
+  width: 250px;
+  background: rgb(44, 44, 44);
+  font-family: 'Courier New', Courier, monospace;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  overflow: hidden;
 }
-void loop()
-{
-  Serial.begin(9600);
 
- digitalWrite(trigPin , LOW);
-  delayMicroseconds (2);
-  digitalWrite(trigPin , HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin , LOW);
+.card__title {
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-bottom: 1px solid rgb(167, 159, 159);
+  font-size: 0.95rem;
+}
 
-  TravelTime = pulseIn (echoPin , HIGH);
-  //Speed = distacne/TravelTime;        //السرعة  = المسافة مقسومة على الزمن
-  distance = 0.034 * TravelTime / 2;     // المسافة = السرعة مضروبة في * الزمن
- 
-  if (distance >= 15)               // Condition For Absence Of Obstacle
-  {
-    digitalWrite(MRb, HIGH);       // Move Forward
-    digitalWrite(MRa, LOW);
-    digitalWrite(MLb, HIGH);
-    digitalWrite(MLa, LOW);
-  }
-  else if (distance < 15)          // Condition For Presence Of Obstacle
-  {
-    digitalWrite(MRb, LOW);     //Stop
-    digitalWrite(MRa, LOW);
-    digitalWrite(MLb, LOW);
-    digitalWrite(MLa, LOW);
-  }
+.card__data {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  border-right: 1px solid rgb(203, 203, 203);
+  border-left: 1px solid rgb(203, 203, 203);
+  border-bottom: 1px solid rgb(203, 203, 203);
+}
 
+.card__right {
+  width: 60%;
+  border-right: 1px solid rgb(203, 203, 203);
+}
+
+.card__left {
+  width: 40%;
+  text-align: end;
+}
+
+.item {
+  padding: 3px 0;
+  background-color: white;
+}
+
+.card__right .item {
+  padding-left: 0.8em;
+}
+
+.card__left .item {
+  padding-right: 0.8em;
+}
+
+.item:nth-child(even) {
+  background: rgb(234, 235, 234);
 }
